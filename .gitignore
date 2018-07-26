@@ -5,6 +5,7 @@
 Homestead.json
 Homestead.yaml
 .env
+package-lock.json
 /public/build
 /public/css
 /public/js
