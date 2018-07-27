@@ -39,6 +39,9 @@ elixir(mix => {
     .less(
       'app.less', 'public/css'
     )
+    .less(
+      'bootstrap/bootstrap.less', 'public/css'
+    )
     .styles([
       'style.css'
     ], 'public/css/all.css', 'front/styles')
@@ -51,6 +54,7 @@ elixir(mix => {
       'directives/**/*.js'
     ], 'public/js/all.js', 'front/scripts')
     .copy('front/views', 'public/views')
+    .copy('front/fonts', 'public/fonts')
     .version([
       'css/all.css',
       'css/app.css',
