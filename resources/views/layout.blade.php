@@ -1,64 +1,45 @@
 <!doctype html>
 <html lang="en" ng-app="cmsDG">
-<head>
-    <base href="/">
-    <meta charset="UTF-8">
-    <title>CMS DG</title>
-    <script type="application/javascript" src="{{ elixir('js/all.js') }}"></script>
-    <link rel="stylesheet" href="{{ elixir('css/app.css') }}"/>
-    <link rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
-</head>
-<body ng-controller="MainController" ng-init="getAuthenticatedUser()">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">CMS DG Navbar</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Dashboard</a>
+    <head>
+        <base href="/">
+        <meta charset="UTF-8">
+        <title>CMS DG</title>
+        <script type="application/javascript" src="{{ elixir('js/all.js')}}"></script>
+        <link rel="stylesheet" href="{{ elixir('css/app.css')}}"/>
+        <link rel="stylesheet" href="{{ elixir('css/all.css')}}"/>
+        <link rel="stylesheet" href="{{ elixir('fonts/css/all.css')}}"/>
+        <link rel="stylesheet" href="{{ elixir('css/bootstrap.css')}}"/>
+    </head>
+    <body ng-controller="MainController" ng-init="getAuthenticatedUser()">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">CMS DG</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Dashboard</a></li>
+                    <li><a href="#">Modules</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!authenticatedUser" ng-class="{active:isActive('/auth/signup')}"><a href="/auth/signup"><i class="fa fa-user"></i> Sign Up</a></li>
+                    <li ng-if="!authenticatedUser" ng-class="{active:isActive('/auth/login')}"><a href="/auth/login"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+                    <li ng-if="authenticatedUser" ng-class="{active:isActive('/users/view/' + authenticatedUser.id)}">
+                        <a ng-href="/users/view/@{{authenticatedUser.id}}">
+                            @{{authenticatedUser.username}}
+                        </a>
+                    </li>
+                    <li ng-if="authenticatedUser" ng-click="logout()">
+                        <a ng-href="#">
+                            Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
+        <div class="container">
+            <div ng-view>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li ng-class="{active:isActive('/todos')}">
-                    <a href="/todos">
-                        List Todos
-                    </a>
-                </li>
-                <li ng-class="{active:isActive('/todos/create')}">
-                    <a href="/todos/create">
-                        Create Todo
-                    </a>
-                </li>
-                <li ng-if="authenticatedUser == null" ng-class="{active:isActive('/auth/signup')}">
-                    <a href="/auth/signup">
-                        Sign Up
-                    </a>
-                </li>
-                <li ng-if="authenticatedUser == null" ng-class="{active:isActive('/auth/login')}">
-                    <a href="/auth/login">
-                        Log in
-                    </a>
-                </li>
-                <li ng-if="authenticatedUser != null" ng-class="{active:isActive('/users/view/' + authenticatedUser.id)}">
-                    <a ng-href="/users/view/@{{authenticatedUser.id}}">
-                        @{{authenticatedUser.username}}
-                    </a>
-                </li>
-                <li ng-if="authenticatedUser != null" ng-click="logout()">
-                    <a ng-href="#">
-                        Log out
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div ng-view>
-    </div>
-</div>
-</body>
+    </body>
 </html>
